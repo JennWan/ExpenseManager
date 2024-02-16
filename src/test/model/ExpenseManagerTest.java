@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ExpenseManagerTest {
     private Expense expense1;
     private Expense expense2;
+    private Expense expense3;
     private ExpenseManager manager;
 
     @BeforeEach
@@ -15,6 +16,7 @@ public class ExpenseManagerTest {
         expense1 = new Expense("test1", 300.00);
         expense1.setDueDate("240101");
         expense2 = new Expense("test2", 750.00);
+        expense3 = new Expense("test3", 400.00);
         manager = new ExpenseManager();
         manager.addExpense(expense1);
         manager.addExpense(expense2);
@@ -53,6 +55,10 @@ public class ExpenseManagerTest {
     @Test
     public void TestGetMonthlyBalance() {
         manager.setToday("240101");
+        assertEquals("240101", manager.getToday());
+        manager.addExpense(expense3);
+        expense3.setDueDate("250120");
+
         assertEquals(300.00, manager.getMonthlyBalance("01"));
         assertEquals(0, manager.getMonthlyBalance("02"));
 
@@ -68,6 +74,16 @@ public class ExpenseManagerTest {
     @Test
     public void TestDecreaseIncomeToUse() {
         manager.setIncomeToUse(500.00);
+        assertEquals(500.00, manager.getIncomeToUse());
         assertEquals(199.50 , manager.decreaseIncomeToUse(300.50));
+    }
+
+    @Test
+    public void TestGetExpenseList() {
+        assertTrue(manager.getExpenseList().contains(expense1));
+        assertEquals(expense1, manager.getExpenseList().get(0));
+        assertTrue(manager.getExpenseList().contains(expense2));
+        assertEquals(expense2, manager.getExpenseList().get(1));
+        assertEquals(2, manager.getExpenseList().size());
     }
 }

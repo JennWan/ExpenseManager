@@ -31,4 +31,14 @@ class ExpenseTest {
         String today = "240101";
         assertEquals(9, expense1.daysLeft(today));
     }
+
+    @Test
+    public void TestConvertToDaysNum() {
+        assertEquals(8427, expense1.convertToDaysNum("230101"));
+        assertEquals(8821, expense1.convertToDaysNum("240202"));
+        assertEquals(8883, expense1.convertToDaysNum("240403"));
+        assertEquals(8976, expense1.convertToDaysNum("240704"));
+        assertEquals(9008, expense1.convertToDaysNum("240805"));
+        assertEquals(9404, expense1.convertToDaysNum("250906"));
+    }
 }

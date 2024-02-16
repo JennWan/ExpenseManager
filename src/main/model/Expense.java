@@ -26,24 +26,6 @@ public class Expense {
         return this.balance = this.balance - amount;
     }
 
-    //REQUIRES: Expense must have a dueDate
-    //EFFECTS: return days remaining till due date
-    public Integer daysLeft(String today) {
-        int yearsToDays = 365 * Integer.valueOf(this.dueDate.substring(0, 2));
-        int monthsToDays = Integer.valueOf(this.dueDate.substring(2, 4));
-        int days = Integer.valueOf(this.dueDate.substring(4, 6));
-
-        int currentDay = todayDate(today);
-
-        if ((monthsToDays <= 7 && !(monthsToDays % 2 == 0)) || (monthsToDays > 7 && (monthsToDays % 2 == 0))) {
-            return yearsToDays + monthsToDays * 31 + days - currentDay;
-        } else if (monthsToDays == 2) {
-            return yearsToDays + monthsToDays * 28 + days - currentDay;
-        } else {
-            return yearsToDays + monthsToDays * 30 + days - currentDay;
-        }
-    }
-
     //REQUIRES: length must be = 6 and the integer value of it
     //  must be >= the integer value of today
     public void setDueDate(String date) {
@@ -74,17 +56,31 @@ public class Expense {
         this.paidOff = b;
     }
 
-    public int todayDate(String today) {
-        int todayYear = 365 * Integer.valueOf(today.substring(0, 2));
-        int todayMonth = Integer.valueOf(today.substring(2, 4));
-        int todayDay = Integer.valueOf(today.substring(4, 6));
+    public Integer convertToDaysNum(String date) {
+        int yearsToDays = 365 * Integer.valueOf(date.substring(0, 2));
+        int months = Integer.valueOf(date.substring(2, 4));
+        int days = Integer.valueOf(date.substring(4, 6));
 
-        if ((todayMonth <= 7 && !(todayMonth % 2 == 0)) || (todayMonth > 7 && (todayMonth % 2 == 0))) {
-            return todayYear + todayMonth * 31 + todayDay;
-        } else if (todayMonth == 2) {
-            return todayYear + todayMonth * 28 + todayDay;
-        } else {
-            return todayYear + todayMonth * 30 + todayDay;
+        int monthsToDays = 0;
+        for (int i = months; i > 0; i--) {
+            if ((i <= 7 && !(i % 2 == 0))
+                    || (i > 7 && (i % 2 == 0))) {
+                monthsToDays = monthsToDays + 31;
+            } else if (i == 2) {
+                monthsToDays = monthsToDays + 28;
+            } else {
+                monthsToDays = monthsToDays + 30;
+            }
         }
+        return yearsToDays + monthsToDays + days;
+    }
+
+    //REQUIRES: Expense must have a dueDate
+    //EFFECTS: return days remaining till due date
+    public Integer daysLeft(String today) {
+        int dueDateDay = convertToDaysNum(this.dueDate);
+        int currentDays = convertToDaysNum(today);
+
+        return dueDateDay - currentDays;
     }
 }
