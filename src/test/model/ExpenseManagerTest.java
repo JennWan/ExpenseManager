@@ -52,6 +52,7 @@ public class ExpenseManagerTest {
 
     @Test
     public void TestGetMonthlyBalance() {
+        manager.setToday("240101");
         assertEquals(300.00, manager.getMonthlyBalance("01"));
         assertEquals(0, manager.getMonthlyBalance("02"));
 
