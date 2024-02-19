@@ -3,8 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseTest {
     private Expense expense1;
@@ -16,7 +15,7 @@ class ExpenseTest {
     }
 
     @Test
-    public void TestPaidAmount() {
+    public void TestPayAmount() {
         assertEquals(300.00, expense1.getGoalSetAmount());
         assertEquals(300.00, expense1.getBalance());
         assertEquals("test1", expense1.getTitle());
@@ -24,6 +23,8 @@ class ExpenseTest {
         assertEquals("240110", expense1.getDueDate());
         assertEquals(300.00 - 100.50, expense1.payAmount(100.50));
         assertEquals(300.00 - 100.50 - 0.50, expense1.payAmount(0.50));
+        assertEquals(0.0, expense1.payAmount(199.00));
+        assertTrue(expense1.isPaidOff());
     }
 
     @Test
