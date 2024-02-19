@@ -1,16 +1,16 @@
 package model;
 
-
-////CLASS SENTENCE NOTE
 import java.util.ArrayList;
 import java.util.List;
 
+//Represents an Expense Manager with income to allocate (in dollars), a list of expenses to pay,
+//  and the date for today in yymmdd format
 public class ExpenseManager {
     private Double incomeToUse;
     private List<Expense> expenseList;
     private String today;
 
-    //EFFECTS: creates an expense manager
+    //EFFECTS: creates an expense manager with an empty expenseList
     public ExpenseManager() {
         this.incomeToUse = 0.0;
         this.expenseList = new ArrayList<>();
@@ -34,6 +34,7 @@ public class ExpenseManager {
         return list;
     }
 
+    //REQUIRES the expense must not have today == null
     //EFFECTS: return a filtered expenseList with daysLeft() <= day
     public List<Expense> dueWithinDays(int day, String today) {
         List<Expense> list = new ArrayList<>();
@@ -58,6 +59,14 @@ public class ExpenseManager {
         return sum;
     }
 
+    //REQUIRES: amount >= 0.0
+    //MODIFIES: this
+    //EFFECTS: decreases IncomeToUse by amount and returns it
+    public Double decreaseIncomeToUse(Double amount) {
+        this.incomeToUse = this.incomeToUse - amount;
+        return this.incomeToUse;
+    }
+
     public Double getIncomeToUse() {
         return this.incomeToUse;
     }
@@ -68,14 +77,6 @@ public class ExpenseManager {
 
     public List<Expense> getExpenseList() {
         return expenseList;
-    }
-
-    //REQUIRES: amount >= 0.0
-    //MODIFIES: this
-    //EFFECTS: decreases IncomeToUse by amount and returns it
-    public Double decreaseIncomeToUse(Double amount) {
-        this.incomeToUse = this.incomeToUse - amount;
-        return this.incomeToUse;
     }
 
     public void setToday(String date) {

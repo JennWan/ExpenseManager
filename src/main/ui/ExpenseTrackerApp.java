@@ -6,6 +6,8 @@ import model.ExpenseManager;
 import java.util.List;
 import java.util.Scanner;
 
+//Expense Tracker application
+//references the TellerApp application
 public class ExpenseTrackerApp {
     private Double income;
     private Scanner input;
@@ -38,7 +40,8 @@ public class ExpenseTrackerApp {
         System.out.println("\nGoodbye!");
     }
 
-    //EFFECTS: asks the user for earning information
+    //MODIFIES: this
+    //EFFECTS: asks the user for their annual income information and initializes ExpenseManager
     private void init() {
         this.manager = new ExpenseManager();
         input = new Scanner(System.in);
@@ -51,7 +54,7 @@ public class ExpenseTrackerApp {
 
     //REQUIRES: earning must be >= 0
     //MODIFIES: this
-    //EFFECTS:
+    //EFFECTS: processes user command
     private void processInit(Double earning) {
         this.income = earning;
         manager.setIncomeToUse(earning);
@@ -59,14 +62,18 @@ public class ExpenseTrackerApp {
         manager.setToday(input.next());
     }
 
+    // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ne -> new expense");
         System.out.println("\nb -> list of expenses and its corresponding balance");
+        System.out.println("\nt -> track expense");
         System.out.println("\nf -> filter viewing options");
         System.out.println("\nq -> quit application");
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes user command
     private void processCommand(String todo) {
         if (todo.equals("e")) {
             System.out.println("What is the name of this expense?");
@@ -74,6 +81,8 @@ public class ExpenseTrackerApp {
             makeExpensePrompt(name);
         } else if (todo.equals("b")) {
             viewExpense();
+        } else if (todo.equals("t")) {
+            dealTrackExpense();
         } else if (todo.equals("f")) {
             filterExpense();
         } else {
@@ -81,6 +90,37 @@ public class ExpenseTrackerApp {
         }
     }
 
+    //REQUIRES: input has to be <= 2 decimal point of string containing integers only
+    //MODIFIES: this
+    //EFFECTS: display and process user command on tracking expenses
+    private void dealTrackExpense() {
+        System.out.println("How much in dollar has been paid off? (2 decimal point)");
+        String toPrint = trackExpense(Double.valueOf(input.next()));
+        if (toPrint == null) {
+            System.out.println("Return valid expense name");
+        } else {
+            System.out.print(toPrint);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: display action for the user regarding tracking expenses
+    //  and returns the new balance else returns null
+    private String trackExpense(Double amount) {
+        System.out.println("Which expense would you like to track?");
+        String expenseName = input.next();
+        for (Expense e : manager.getExpenseList()) {
+            if (expenseName.equals(e.getTitle())) {
+                return "Remainder to pay: " + e.payAmount(amount);
+            }
+        }
+        return null;
+    }
+
+    //REQUIRES: input has to be <= 2 decimal point of string containing integers only
+    //MODIFIES: this
+    //EFFECTS: display and process user command regarding creating an expense
+    //  also creates a new Expense object added to the expenseManager
     private void makeExpensePrompt(String name) {
         System.out.println("How much $ would you allocate this expense? (in two decimal places)");
         Double setAmount = Double.valueOf(input.next());
@@ -92,6 +132,8 @@ public class ExpenseTrackerApp {
         System.out.println("Remainder of income to allocate: " + manager.getIncomeToUse());
     }
 
+    //MODIFIES: this
+    //EFFECTS: display action for the user regarding creating an expenses due date
     private String expenseDueDate() {
         System.out.println("Would you like to give this expense a due date?");
         System.out.println("\nSelect from:");
@@ -101,6 +143,8 @@ public class ExpenseTrackerApp {
         return processDueDate(command1);
     }
 
+    //MODIFIES: this
+    //EFFECTS: display and processes user input regarding Expense due date
     private String processDueDate(String todo) {
         if (todo.equals("y")) {
             System.out.println("What is the due date for this expense (yymmdd)");
@@ -113,6 +157,7 @@ public class ExpenseTrackerApp {
         }
     }
 
+    //EFFECTS: prints list of Expenses with its corresponding balance
     private void viewExpense() {
         List<Expense> list = manager.getExpenseList();
         for (Expense e:list) {
@@ -120,6 +165,8 @@ public class ExpenseTrackerApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: displays menu of filtering Expense options to user
     private void filterExpense() {
         System.out.println("\nSelect from:");
         System.out.println("\np -> expense completely paid off");
@@ -130,6 +177,8 @@ public class ExpenseTrackerApp {
         processFiltered(command1);
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes and print filtered list of Expense to user
     private void processFiltered(String todo) {
         if (todo.equals("p")) {
             System.out.println(manager.completedExpenses(true));
@@ -148,11 +197,12 @@ public class ExpenseTrackerApp {
         }
     }
 
+    //EFFECTS: prints the filtered list of Expenses due in N days
     private void dueInNDays(int n) {
         System.out.println(manager.dueWithinDays(n, manager.getToday()));
     }
 
-    //EFFECTS: prints the
+    //EFFECTS: prints the filtered list of given due date month's Expenses
     private void monthlyBalance(String month) {
         System.out.println(manager.getMonthlyBalance(month));
     }

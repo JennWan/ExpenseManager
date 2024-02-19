@@ -22,8 +22,8 @@ class ExpenseTest {
         assertEquals("test1", expense1.getTitle());
         assertFalse(expense1.isPaidOff());
         assertEquals("240110", expense1.getDueDate());
-        assertEquals(300.00 - 100.50, expense1.paidAmount(100.50));
-        assertEquals(300.00 - 100.50 - 0.50, expense1.paidAmount(0.50));
+        assertEquals(300.00 - 100.50, expense1.payAmount(100.50));
+        assertEquals(300.00 - 100.50 - 0.50, expense1.payAmount(0.50));
     }
 
     @Test

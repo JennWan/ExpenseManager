@@ -1,5 +1,7 @@
 package model;
 
+//Represents an expense having a title, optional dueDate,
+//      goalSetAmount, balance (in CAD dollars) and if it is finished paying off
 public class Expense {
     private String dueDate;        // due date in format yymmdd
     private Boolean paidOff;       // true if the Expense is at balance 0
@@ -21,41 +23,23 @@ public class Expense {
 
     //REQUIRES: amount >= 0 and BigDecimal.valueOf(amount).scale() <= 2
     //MODIFIES: this
-    //EFFECTS: return balance =- amount
-    public Double paidAmount(Double amount) {
-        return this.balance = this.balance - amount;
+    //EFFECTS: return new balance subtracting the amount paid and checks if it is paidOff
+    public Double payAmount(Double amount) {
+        this.balance = this.balance - amount;
+        if (this.balance == 0.0) {
+            setPaidOff(true);
+        }
+        return this.balance;
     }
 
-    //REQUIRES: length must be = 6 and the integer value of it
+    //REQUIRES: length must be = 6 and the integer value of date
     //  must be >= the integer value of today
     public void setDueDate(String date) {
         this.dueDate = date;
     }
 
-    public String getDueDate() {
-        return this.dueDate;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public Double getGoalSetAmount() {
-        return goalSetAmount;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public Boolean isPaidOff() {
-        return paidOff;
-    }
-
-    public void setPaidOff(Boolean b) {
-        this.paidOff = b;
-    }
-
+    //REQUIRES: date must be a string consisting only of integers of valid calendar days
+    //EFFECTS: converts date to total number of days
     public Integer convertToDaysNum(String date) {
         int yearsToDays = 365 * Integer.valueOf(date.substring(0, 2));
         int months = Integer.valueOf(date.substring(2, 4));
@@ -82,5 +66,29 @@ public class Expense {
         int currentDays = convertToDaysNum(today);
 
         return dueDateDay - currentDays;
+    }
+
+    public String getDueDate() {
+        return this.dueDate;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public Double getGoalSetAmount() {
+        return goalSetAmount;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public Boolean isPaidOff() {
+        return paidOff;
+    }
+
+    public void setPaidOff(Boolean b) {
+        this.paidOff = b;
     }
 }
