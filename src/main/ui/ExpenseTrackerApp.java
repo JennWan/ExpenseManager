@@ -170,7 +170,7 @@ public class ExpenseTrackerApp {
     private void filterExpense() {
         System.out.println("\nSelect from:");
         System.out.println("\np -> expense completely paid off");
-        System.out.println("\nt -> expense to be paid off");
+        System.out.println("\nr -> expense to be paid off");
         System.out.println("\nn -> expense due in n days");
         System.out.println("\nm -> total monthly balance");
         String command1 = input.next();
@@ -181,9 +181,13 @@ public class ExpenseTrackerApp {
     //EFFECTS: processes and print filtered list of Expense to user
     private void processFiltered(String todo) {
         if (todo.equals("p")) {
-            System.out.println(manager.completedExpenses(true));
-        } else if (todo.equals("t")) {
-            System.out.println(manager.completedExpenses(false));
+            for (Expense e: manager.completedExpenses(true)) {
+                System.out.println(e.getTitle());
+            }
+        } else if (todo.equals("r")) {
+            for (Expense e: manager.completedExpenses(false)) {
+                System.out.println(e.getTitle() + "\n :" + e.getBalance());
+            }
         } else if (todo.equals("n")) {
             System.out.println("Within what range in days would you like to see?");
             int days = Integer.parseInt(input.next());
