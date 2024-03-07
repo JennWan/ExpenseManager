@@ -1,8 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
+// Referenced from the JsonSerialization Demo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 //Represents an expense having a title, optional dueDate,
 //      goalSetAmount, balance (in CAD dollars) and if it is finished paying off
-public class Expense {
+public class Expense implements Writable {
     private String dueDate;        // due date in format yymmdd
     private Boolean paidOff;       // true if the Expense is at balance 0
     private Double goalSetAmount;  // the amount to be paid towards the Expense
@@ -84,11 +89,26 @@ public class Expense {
         return balance;
     }
 
+    public void setBalance(Double balance1) {
+        this.balance = balance1;
+    }
+
     public Boolean isPaidOff() {
         return paidOff;
     }
 
     public void setPaidOff(Boolean b) {
         this.paidOff = b;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("paidOff", paidOff);
+        json.put("balance", balance);
+        json.put("dueDate", dueDate);
+        json.put("goalSetAmount", goalSetAmount);
+        return json;
     }
 }

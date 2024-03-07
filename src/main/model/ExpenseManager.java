@@ -1,11 +1,17 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
+// Referenced from the JsonSerialization Demo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 //Represents an Expense Manager with income to allocate (in dollars), a list of expenses to pay,
 //  and the date for today in yymmdd format
-public class ExpenseManager {
+public class ExpenseManager implements Writable {
     private Double incomeToUse;
     private List<Expense> expenseList;
     private String today;
@@ -85,5 +91,25 @@ public class ExpenseManager {
 
     public String getToday() {
         return this.today;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("expense", expenseToJson());
+        json.put("incomeToUse", incomeToUse);
+        json.put("today", today);
+        return json;
+    }
+
+    // EFFECTS: returns expenses in this workroom as a JSON array
+    private JSONArray expenseToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Expense t : expenseList) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
     }
 }

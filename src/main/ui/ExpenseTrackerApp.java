@@ -2,16 +2,26 @@ package ui;
 
 import model.Expense;
 import model.ExpenseManager;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
+//Referenced the TellerApp application
+//Referenced from the JsonSerialization Demo
+//https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 //Expense Tracker application
-//references the TellerApp application
 public class ExpenseTrackerApp {
+    private static final String JSON_STORE = "./data/ExpenseManager.json";
     private Double income;
     private Scanner input;
     private ExpenseManager manager;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     //EFFECTS: runs the expense tracker application
     public ExpenseTrackerApp() {
@@ -46,6 +56,8 @@ public class ExpenseTrackerApp {
         this.manager = new ExpenseManager();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         System.out.println("\nWhat is your annual income (with two decimal places)?");
         Double values = null;
         values = Double.valueOf(input.next());
@@ -69,6 +81,8 @@ public class ExpenseTrackerApp {
         System.out.println("\nb -> list of expenses and its corresponding balance");
         System.out.println("\nt -> track expense");
         System.out.println("\nf -> filter viewing options");
+        System.out.println("\ns -> save ExpenseManager");
+        System.out.println("\nl -> load ExpenseManager");
         System.out.println("\nq -> quit application");
     }
 
@@ -85,6 +99,10 @@ public class ExpenseTrackerApp {
             dealTrackExpense();
         } else if (todo.equals("f")) {
             filterExpense();
+        } else if (todo.equals("s")) {
+            saveExpenseManager();
+        } else if (todo.equals("l")) {
+            loadExpenseManager();
         } else {
             System.out.println("Retry a valid selection!");
         }
@@ -209,5 +227,28 @@ public class ExpenseTrackerApp {
     //EFFECTS: prints the filtered list of given due date month's Expenses
     private void monthlyBalance(String month) {
         System.out.println(manager.getMonthlyBalance(month));
+    }
+
+    // EFFECTS: saves the manager to file
+    private void saveExpenseManager() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(manager);
+            jsonWriter.close();
+            System.out.println("Saved ExpenseManager to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads manager from file
+    private void loadExpenseManager() {
+        try {
+            manager = jsonReader.read();
+            System.out.println("Loaded ExpenseManager from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
