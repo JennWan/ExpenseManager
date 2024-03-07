@@ -33,4 +33,7 @@ where almost everything is new.
 - As a user, I want to be able to view a list of the name of expenses and
     its corresponding balance (based off of the original goal-set value).
 - As a user, I want to be able to see the remainder of my earning that is not allocated to an expense.
-- As a user, I want to be able to add actual amount spend into an expense.
+- As a user, I want to be able to add actual amount spend into an expense. 
+- As a user, when I select the quit option from the application menu, 
+     I want to be reminded to save my list of Expense to file and have the option to do so or not. 
+- As a user, when I start the application, I want to be given the option to load my to-do list from file.
