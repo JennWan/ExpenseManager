@@ -49,14 +49,16 @@ public class ExpenseManagerUI extends JFrame {
 
     //MODIFIES: this
     //EFFECTS: updates UI with changes in ExpenseManager
-    public void update() {
-        System.out.println("Expense setup completed!");
+    public String update() {
+        String str = "Expense setup completed!";
+        System.out.println(str);
         if (manager.getExpenseList().isEmpty() == false) {
             Expense e = manager.getExpenseList().get(manager.getExpenseList().size() - 1);
             DisplayExpense displayExpense = new DisplayExpense(e);
             desktop.add(displayExpense, gbc);
             incomeToUse.setText(String.valueOf(manager.getIncomeToUse()));
         }
+        return str;
     }
 
     public ExpenseManager getManager() {

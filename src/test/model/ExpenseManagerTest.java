@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.gui.ExpenseManagerUI;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ExpenseManagerTest {
@@ -39,6 +41,7 @@ public class ExpenseManagerTest {
 
     @Test
     public void TestDueWithinNDays() {
+
         expense1.setDueDate("240103");
         expense2.setDueDate("240210");
         String today = "240101";
@@ -89,10 +92,20 @@ public class ExpenseManagerTest {
     }
 
     @Test
-    public void TestExpenseManagerUI() {
+    public void TestDaysLeft() {
+        ExpenseManager manager1 = new ExpenseManager();
+        manager1.addExpense(expense2);
+        manager1.addExpense(expense3);
+        List<Expense> list = manager1.dueWithinDays(1, "240101");
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void TestSetExpenseManagerUI() {
         ExpenseManagerUI ui = new ExpenseManagerUI();
         manager.setExpenseManagerUI(ui);
+        assertEquals(ui, manager.getExpenseManagerUI());
         assertEquals(manager, ui.getManager());
-        ui.update();
+        assertEquals("Expense setup completed!", ui.update());
     }
 }

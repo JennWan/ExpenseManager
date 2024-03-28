@@ -30,7 +30,7 @@ class ExpenseTest {
         assertEquals(50.0, expense1.getBalance());
 
         expense1.setDueDate(null);
-        assertEquals(null, expense1.getDueDate());
+        assertEquals(null, expense1.daysLeft("240110"));
     }
 
     @Test

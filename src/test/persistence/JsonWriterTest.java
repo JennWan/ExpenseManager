@@ -89,4 +89,24 @@ class JsonWriterTest {
             fail("Exception should not have been thrown");
         }
     }
+
+    @Test
+    public void TestToJsonTodayNull() {
+        try {
+            ExpenseManager em = new ExpenseManager();
+            em.setIncomeToUse(2000.00);
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyExpenseManager.json");
+            writer.open();
+            writer.write(em);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterNoTodayExpenseManager.json");
+            em = reader.read(ui);
+            assertEquals("null", em.getToday());
+            assertEquals(2000.0, em.getIncomeToUse());
+            assertEquals(0, em.getExpenseList().size());
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
 }

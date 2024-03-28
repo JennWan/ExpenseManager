@@ -135,4 +135,8 @@ public class ExpenseManager implements Writable {
         expenseManagerUI = o;
         o.setManager(this);
     }
+
+    public ExpenseManagerUI getExpenseManagerUI() {
+        return expenseManagerUI;
+    }
 }
