@@ -4,6 +4,7 @@ import model.Expense;
 import model.ExpenseManager;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.gui.ExpenseManagerUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class ExpenseTrackerApp {
     private ExpenseManager manager;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private ExpenseManagerUI ui = new ExpenseManagerUI();
 
     //EFFECTS: runs the expense tracker application
     public ExpenseTrackerApp() {
@@ -144,7 +146,7 @@ public class ExpenseTrackerApp {
         Double setAmount = Double.valueOf(input.next());
         Expense expense = new Expense(name, setAmount);
         manager.addExpense(expense);
-        manager.decreaseIncomeToUse(setAmount);
+//        manager.decreaseIncomeToUse(setAmount);
         expense.setDueDate(expenseDueDate());
         System.out.println("Expense setup completed!");
         System.out.println("Remainder of income to allocate: " + manager.getIncomeToUse());
@@ -207,9 +209,9 @@ public class ExpenseTrackerApp {
                 System.out.println(e.getTitle() + "\n :" + e.getBalance());
             }
         } else if (todo.equals("n")) {
-            System.out.println("Within what range in days would you like to see?");
-            int days = Integer.parseInt(input.next());
-            dueInNDays(days);
+            System.out.println("\nWhat day are you using this app yymmdd?");
+            manager.setToday(input.next());
+            processDueInNDay();
         } else if (todo.equals("m")) {
             System.out.println("What month would you like to see?");
             String month = input.next();
@@ -219,9 +221,19 @@ public class ExpenseTrackerApp {
         }
     }
 
+    private void processDueInNDay() {
+        System.out.println("Within what range in days would you like to see?");
+        int days = Integer.parseInt(input.next());
+        dueInNDays(days);
+    }
+
     //EFFECTS: prints the filtered list of Expenses due in N days
     private void dueInNDays(int n) {
-        System.out.println(manager.dueWithinDays(n, manager.getToday()));
+        if (!manager.dueWithinDays(n, manager.getToday()).isEmpty()) {
+            System.out.println(manager.dueWithinDays(n, manager.getToday()));
+        } else {
+            System.out.println("Nothing is due!");
+        }
     }
 
     //EFFECTS: prints the filtered list of given due date month's Expenses
@@ -245,7 +257,7 @@ public class ExpenseTrackerApp {
     // EFFECTS: loads manager from file
     private void loadExpenseManager() {
         try {
-            manager = jsonReader.read();
+            manager = jsonReader.read(ui);
             System.out.println("Loaded ExpenseManager from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);

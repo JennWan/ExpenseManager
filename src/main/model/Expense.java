@@ -26,7 +26,7 @@ public class Expense implements Writable {
         this.dueDate = null;
     }
 
-    //REQUIRES: amount >= 0 and BigDecimal.valueOf(amount).scale() <= 2
+    //REQUIRES: balance >= amount >= 0 and BigDecimal.valueOf(amount).scale() <= 2
     //MODIFIES: this
     //EFFECTS: return new balance subtracting the amount paid and checks if it is paidOff
     public Double payAmount(Double amount) {
@@ -67,6 +67,9 @@ public class Expense implements Writable {
     //REQUIRES: Expense must have a dueDate
     //EFFECTS: return days remaining till due date
     public Integer daysLeft(String today) {
+        if (this.dueDate == null) {
+            return null;
+        }
         int dueDateDay = convertToDaysNum(this.dueDate);
         int currentDays = convertToDaysNum(today);
 

@@ -1,8 +1,10 @@
 package persistence;
 
+import jdk.jfr.Experimental;
 import model.Expense;
 import model.ExpenseManager;
 import org.junit.jupiter.api.Test;
+import ui.gui.ExpenseManagerUI;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,12 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class JsonReaderTest {
+    private ExpenseManagerUI ui = new ExpenseManagerUI();
 
     @Test
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
-            ExpenseManager em = reader.read();
+            ExpenseManager em = reader.read(ui);
             fail("IOException expected");
         } catch (IOException e) {
             // pass
@@ -27,7 +30,7 @@ class JsonReaderTest {
     void testReaderEmptyExpenseManager() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyExpenseManager.json");
         try {
-            ExpenseManager em = reader.read();
+            ExpenseManager em = reader.read(ui);
             assertEquals("240306", em.getToday());
             assertEquals(2000, em.getIncomeToUse());
             assertEquals(0, em.getExpenseList().size());
@@ -40,7 +43,7 @@ class JsonReaderTest {
     void testReaderGeneralExpenseManager() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralExpenseManager.json");
         try {
-            ExpenseManager em = reader.read();
+            ExpenseManager em = reader.read(ui);
             List<Expense> list = em.getExpenseList();
             assertEquals(2, list.size());
 

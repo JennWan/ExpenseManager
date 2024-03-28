@@ -4,6 +4,7 @@ import model.Expense;
 import model.ExpenseManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import ui.gui.ExpenseManagerUI;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +14,7 @@ import java.util.stream.Stream;
 
 // Referenced from the JsonSerialization Demo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads expenseManager from JSON data stored in file
 public class JsonReader {
     private String source;
 
@@ -24,10 +25,10 @@ public class JsonReader {
 
     // EFFECTS: reads ExpenseManager from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public ExpenseManager read() throws IOException {
+    public ExpenseManager read(ExpenseManagerUI ui) throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseExpenseManager(jsonObject);
+        return parseExpenseManager(jsonObject, ui);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -42,10 +43,12 @@ public class JsonReader {
     }
 
     // EFFECTS: parses ExpenseManager from JSON object and returns it
-    private ExpenseManager parseExpenseManager(JSONObject jsonObject) {
+    private ExpenseManager parseExpenseManager(JSONObject jsonObject, ExpenseManagerUI ui) {
         ExpenseManager em = new ExpenseManager();
         em.setIncomeToUse(jsonObject.getDouble("incomeToUse"));
         em.setToday(jsonObject.getString("today"));
+        em.setExpenseManagerUI(ui);
+        ui.setManager(em);
         addExpenses(em, jsonObject);
         return em;
     }

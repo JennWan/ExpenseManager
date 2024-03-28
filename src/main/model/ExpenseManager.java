@@ -3,30 +3,36 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.gui.ExpenseManagerUI;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // Referenced from the JsonSerialization Demo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 //Represents an Expense Manager with income to allocate (in dollars), a list of expenses to pay,
 //  and the date for today in yymmdd format
 public class ExpenseManager implements Writable {
     private Double incomeToUse;
     private List<Expense> expenseList;
     private String today;
+    private ExpenseManagerUI expenseManagerUI;
 
     //EFFECTS: creates an expense manager with an empty expenseList
     public ExpenseManager() {
         this.incomeToUse = 0.0;
         this.expenseList = new ArrayList<>();
         this.today = null;
+        this.expenseManagerUI = null;
     }
 
     //MODIFIES: this
     //EFFECTS: adds expense to expenseList
     public void addExpense(Expense expense) {
         this.expenseList.add(expense);
+        this.decreaseIncomeToUse(expense.getGoalSetAmount());
+        this.notifyUI();
     }
 
     //EFFECTS: return a filtered expenseList with completed == isPaidOff()
@@ -45,8 +51,10 @@ public class ExpenseManager implements Writable {
     public List<Expense> dueWithinDays(int day, String today) {
         List<Expense> list = new ArrayList<>();
         for (Expense e: expenseList) {
-            if (e.daysLeft(today) <= day) {
-                list.add(e);
+            if (e.daysLeft(today) != null) {
+                if (e.daysLeft(today) <= day) {
+                    list.add(e);
+                }
             }
         }
         return list;
@@ -111,5 +119,15 @@ public class ExpenseManager implements Writable {
         }
 
         return jsonArray;
+    }
+
+    public void notifyUI() {
+        if (expenseManagerUI != null) {
+            expenseManagerUI.update();
+        }
+    }
+
+    public void setExpenseManagerUI(ExpenseManagerUI o) {
+        expenseManagerUI = o;
     }
 }

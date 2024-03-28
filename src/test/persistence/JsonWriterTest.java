@@ -3,6 +3,7 @@ package persistence;
 import model.ExpenseManager;
 import model.Expense;
 import org.junit.jupiter.api.Test;
+import ui.gui.ExpenseManagerUI;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +15,8 @@ class JsonWriterTest {
     //NOTE TO CPSC 210 STUDENTS: the strategy in designing tests for the JsonWriter is to
     //write data to a file and then use the reader to read it back in and check that we
     //read in a copy of what was written out.
+
+    private ExpenseManagerUI ui = new ExpenseManagerUI();
 
     @Test
     void testWriterInvalidFile() {
@@ -37,7 +40,7 @@ class JsonWriterTest {
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterEmptyWorkroom.json");
-            em = reader.read();
+            em = reader.read(ui);
             assertEquals("240306", em.getToday());
             assertEquals("2000.00", em.getIncomeToUse());
             assertEquals(0, em.getExpenseList().size());
@@ -58,7 +61,7 @@ class JsonWriterTest {
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
-            em = reader.read();
+            em = reader.read(ui);
             assertEquals(1500.00, em.getIncomeToUse());
             List<Expense> list = em.getExpenseList();
             assertEquals(2, list.size());
