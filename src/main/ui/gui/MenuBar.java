@@ -140,7 +140,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
                 } else {
                     monthlyBalance = manager.getMonthlyBalance("i");
                 }
-                System.out.println("Balance for month " + i + "is: " + monthlyBalance);
+                System.out.println("Balance for month " + i + " is: " + monthlyBalance);
             }
         }
     }
