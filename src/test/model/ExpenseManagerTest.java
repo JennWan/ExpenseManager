@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.gui.ExpenseManagerUI;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -85,5 +86,13 @@ public class ExpenseManagerTest {
         assertTrue(manager.getExpenseList().contains(expense2));
         assertEquals(expense2, manager.getExpenseList().get(1));
         assertEquals(2, manager.getExpenseList().size());
+    }
+
+    @Test
+    public void TestExpenseManagerUI() {
+        ExpenseManagerUI ui = new ExpenseManagerUI();
+        manager.setExpenseManagerUI(ui);
+        assertEquals(manager, ui.getManager());
+        ui.update();
     }
 }

@@ -106,7 +106,11 @@ public class ExpenseManager implements Writable {
         JSONObject json = new JSONObject();
         json.put("expense", expenseToJson());
         json.put("incomeToUse", incomeToUse);
-        json.put("today", today);
+        if (today == null) {
+            json.put("today", "null");
+        } else {
+            json.put("today", today);
+        }
         return json;
     }
 
@@ -129,5 +133,6 @@ public class ExpenseManager implements Writable {
 
     public void setExpenseManagerUI(ExpenseManagerUI o) {
         expenseManagerUI = o;
+        o.setManager(this);
     }
 }

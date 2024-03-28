@@ -31,18 +31,20 @@ class JsonWriterTest {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmptyExpenseManager() {
         try {
             ExpenseManager em = new ExpenseManager();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
+            em.setToday("240327");
+            em.setIncomeToUse(2000.00);
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyExpenseManager.json");
             writer.open();
             writer.write(em);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyExpenseManager.json");
             em = reader.read(ui);
-            assertEquals("240306", em.getToday());
-            assertEquals("2000.00", em.getIncomeToUse());
+            assertEquals("240327", em.getToday());
+            assertEquals(2000.0, em.getIncomeToUse());
             assertEquals(0, em.getExpenseList().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
@@ -50,33 +52,38 @@ class JsonWriterTest {
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralExpenseManager() {
         try {
             ExpenseManager em = new ExpenseManager();
             em.addExpense(new Expense("Rent", 200.00));
             em.addExpense(new Expense("Mall", 300.00));
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
+            em.setToday("240306");
+            em.setIncomeToUse(1500.00);
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralExpenseManager.json");
             writer.open();
             writer.write(em);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralExpenseManager.json");
             em = reader.read(ui);
-            assertEquals(1500.00, em.getIncomeToUse());
+            assertEquals(1000.0, em.getIncomeToUse());
             List<Expense> list = em.getExpenseList();
             assertEquals(2, list.size());
 
             assertEquals("Rent", list.get(0).getTitle());
-            assertEquals(190, list.get(0).getBalance());
+            list.get(0).payAmount(10.00);
+            assertEquals(190.0, list.get(0).getBalance());
+            list.get(0).setDueDate("240307");
             assertEquals("240307", list.get(0).getDueDate());
-            assertEquals("200.00", list.get(0).getGoalSetAmount());
+            assertEquals(200.0, list.get(0).getGoalSetAmount());
             assertEquals(false, list.get(0).isPaidOff());
 
 
             assertEquals("Mall", list.get(1).getTitle());
-            assertEquals(0, list.get(1).getBalance());
+            list.get(1).payAmount(300.00);
+            assertEquals(0.0, list.get(1).getBalance());
             assertEquals(null, list.get(1).getDueDate());
-            assertEquals("300.00", list.get(1).getGoalSetAmount());
+            assertEquals(300.0, list.get(1).getGoalSetAmount());
             assertEquals(true, list.get(1).isPaidOff());
         } catch (IOException e) {
             fail("Exception should not have been thrown");

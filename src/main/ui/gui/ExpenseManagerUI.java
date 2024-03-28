@@ -17,11 +17,6 @@ public class ExpenseManagerUI extends JFrame {
     JTextField incomeToUse;
     JLabel incomeLabel;
 
-    //EFFECTS: starts the application
-    public static void main(String[] args) {
-        new ExpenseManagerUI();
-    }
-
     //EFFECTS: creates a new ExpenseManagerUI
     public ExpenseManagerUI() {
         manager = new ExpenseManager();
@@ -55,6 +50,7 @@ public class ExpenseManagerUI extends JFrame {
     //MODIFIES: this
     //EFFECTS: updates UI with changes in ExpenseManager
     public void update() {
+        System.out.println("Expense setup completed!");
         if (manager.getExpenseList().isEmpty() == false) {
             Expense e = manager.getExpenseList().get(manager.getExpenseList().size() - 1);
             DisplayExpense displayExpense = new DisplayExpense(e);
