@@ -1,11 +1,5 @@
 {
-    "today": "240327",
-    "incomeToUse": 1700,
-    "expense": [{
-        "balance": 300,
-        "paidOff": false,
-        "dueDate": "240328",
-        "title": "Rent",
-        "goalSetAmount": 300
-    }]
+    "today": "null",
+    "incomeToUse": 0,
+    "expense": []
 }

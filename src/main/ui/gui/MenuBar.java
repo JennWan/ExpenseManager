@@ -6,6 +6,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -54,6 +55,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         loadItem = new JMenuItem("Load Progress");
         exitItem = new JMenuItem("EXIT");
 
+        //addIcon();
         initializeMenu();
 
         this.add(fileMenu);
@@ -75,6 +77,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         dueNDays.addActionListener(this);
         totalMonthlyBalance.addActionListener(this);
 
+        addIcon();
         mnemonicKey();
 
         fileMenu.add(loadItem);
@@ -183,5 +186,29 @@ public class MenuBar extends JMenuBar implements ActionListener {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    private void addIcon() {
+        //Reference: https://gifer.com/en/gifs/loading
+        ImageIcon loadImage = new ImageIcon("./src/main/icon/load.png");
+        Image image1 = loadImage.getImage();
+        Image tempImage1 = image1.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon loadIcon = new ImageIcon(tempImage1);
+
+        //Reference: https://www.flaticon.com/free-icon/save-instagram_5662990
+        ImageIcon saveImage = new ImageIcon("./src/main/icon/save.png");
+        Image image2 = saveImage.getImage();
+        Image tempImage2 = image2.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon saveIcon = new ImageIcon(tempImage2);
+
+        //Reference: https://pngtree.com/so/door-icon
+        ImageIcon exitImage = new ImageIcon("./src/main/icon/exit.png");
+        Image image3 = exitImage.getImage();
+        Image tempImage3 = image3.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon exitIcon = new ImageIcon(tempImage3);
+
+        loadItem.setIcon(loadIcon);
+        saveItem.setIcon(saveIcon);
+        exitItem.setIcon(exitIcon);
     }
 }
