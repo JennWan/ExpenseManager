@@ -7,13 +7,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//creates a JFrame to gather date information
 public class SetDate extends JFrame implements ActionListener {
     ExpenseManager manager;
     JButton button;
     JTextField date;
     JLabel dateLabel;
 
-    //initializes manager with today's date
+    //EFFECTS: initializes manager with today's date
     public SetDate(ExpenseManager manager) {
         this.manager = manager;
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -35,6 +36,8 @@ public class SetDate extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: set today's date to ExpenseManager
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {

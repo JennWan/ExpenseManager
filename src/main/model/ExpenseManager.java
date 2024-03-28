@@ -8,8 +8,8 @@ import ui.gui.ExpenseManagerUI;
 import java.util.ArrayList;
 import java.util.List;
 
-// Referenced from the JsonSerialization Demo
-// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+//Referenced from the JsonSerialization Demo
+//https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
 //Represents an Expense Manager with income to allocate (in dollars), a list of expenses to pay,
 //  and the date for today in yymmdd format

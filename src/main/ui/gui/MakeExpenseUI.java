@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//creates a JFrame to gather information in order to initialize an Expense
 public class MakeExpenseUI extends JFrame implements ActionListener {
     ExpenseManagerUI managerUI;
     ExpenseManager em;
@@ -18,6 +19,7 @@ public class MakeExpenseUI extends JFrame implements ActionListener {
     JLabel titleLabel;
     JLabel amountLabel;
 
+    //EFFECTS: creates a JFrame
     public MakeExpenseUI(ExpenseManagerUI managerUI) {
         this.managerUI = managerUI;
         this.em = managerUI.getManager();
@@ -49,6 +51,8 @@ public class MakeExpenseUI extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: create an Expense then add it to ExpenseManager
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
@@ -59,8 +63,5 @@ public class MakeExpenseUI extends JFrame implements ActionListener {
             em.addExpense(expense);
             this.dispose();
         }
-
-//        Expense setup completed!
-//                Remainder of income to allocate: 1700.0
     }
 }

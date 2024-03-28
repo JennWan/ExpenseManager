@@ -3,8 +3,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
-// Referenced from the JsonSerialization Demo
-// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+//Referenced from the JsonSerialization Demo
+//https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 //Represents an expense having a title, optional dueDate,
 //      goalSetAmount, balance (in CAD dollars) and if it is finished paying off
 public class Expense implements Writable {

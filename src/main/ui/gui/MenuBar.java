@@ -12,26 +12,29 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+//creates a MenuBar leading to actions to be done with the application
 public class MenuBar extends JMenuBar implements ActionListener {
     private static final String JSON_STORE = "./data/ExpenseManager.json";
-    ExpenseManagerUI managerUI;
-    ExpenseManager manager;
+    private ExpenseManagerUI managerUI;
+    private ExpenseManager manager;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    JMenuItem newExpense;
-    JMenu expenseActions;
-    JMenu fileMenu;
-    JMenuItem saveItem;
-    JMenuItem loadItem;
-    JMenuItem exitItem;
-    JMenuItem paidOffTrue;
-    JMenuItem paidOffFalse;
-    JMenuItem dueNDays;
-    JMenuItem totalMonthlyBalance;
-    ImageIcon saveIcon;
-    ImageIcon loadIcon;
-    ImageIcon exitIcon;
+    private JMenuItem newExpense;
+    private JMenu expenseActions;
+    private JMenu fileMenu;
+    private JMenuItem saveItem;
+    private JMenuItem loadItem;
+    private JMenuItem exitItem;
+    private JMenuItem paidOffTrue;
+    private JMenuItem paidOffFalse;
+    private JMenuItem dueNDays;
+    private JMenuItem totalMonthlyBalance;
+    private ImageIcon saveIcon;
+    private ImageIcon loadIcon;
+    private ImageIcon exitIcon;
+    private Double monthlyBalance = 0.0;
 
+    //EFFECTS: creates a JMenuBar
     public MenuBar(ExpenseManagerUI managerUI) {
         this.managerUI = managerUI;
         this.manager = managerUI.getManager();
@@ -58,7 +61,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         this.add(expenseActions);
     }
 
-    //set up the menu bar
+    //MODIFIES: this
+    //EFFECTS: add components to the menu bar
     public void initializeMenu() {
         saveItem.addActionListener(this);
         loadItem.addActionListener(this);
@@ -83,6 +87,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         expenseActions.add(totalMonthlyBalance);
     }
 
+    //MODIFIES: this
+    //EFFECTS: add shortcuts to the MenuBar
     public void mnemonicKey() {
         fileMenu.setMnemonic(KeyEvent.VK_F); //Alt + m
         newExpense.setMnemonic(KeyEvent.VK_N); //Alt + n
@@ -98,7 +104,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         totalMonthlyBalance.setMnemonic(KeyEvent.VK_B); //b for monthly Balance
     }
 
-    //process actions
+    //MODIFIES: this
+    //EFFECTS: process the actions pressed on the MenuBar into 3
     @Override
     public void actionPerformed(ActionEvent e) {
         processFileMenu(e);
@@ -110,6 +117,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         processActions(e);
     }
 
+    //MODIFIES: this
+    //EFFECTS: process the actions from MenuBar
     private void processActions(ActionEvent e) {
         if (e.getSource() == paidOffTrue) {
             for (Expense expense : manager.completedExpenses(true)) {
@@ -122,13 +131,22 @@ public class MenuBar extends JMenuBar implements ActionListener {
             }
         }
         if (e.getSource() == dueNDays) {
-            //require date to be filled in TODO
+            AskUpdateDate askUpdateDate = new AskUpdateDate(managerUI);
         }
         if (e.getSource() == totalMonthlyBalance) {
-            //required date to be filled in TODO
+            for (int i = 0; i <= 12; i++) {
+                if (i <= 9) {
+                    monthlyBalance = manager.getMonthlyBalance("0" + i);
+                } else {
+                    monthlyBalance = manager.getMonthlyBalance("i");
+                }
+                System.out.println("Balance for month " + i + "is: " + monthlyBalance);
+            }
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: process the file menu options
     private void processFileMenu(ActionEvent e) {
         if (e.getSource() == saveItem) {
             saveExpenseManager();
@@ -143,7 +161,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         }
     }
 
-    // EFFECTS: saves the manager to file
+    //MODIFIES: this
+    //EFFECTS: saves the manager to file
     private void saveExpenseManager() {
         try {
             jsonWriter.open();
@@ -155,8 +174,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: loads manager from file
+    //MODIFIES: this
+    //EFFECTS: loads manager from file
     private void loadExpenseManager(ExpenseManagerUI ui) {
         try {
             manager = jsonReader.read(ui);

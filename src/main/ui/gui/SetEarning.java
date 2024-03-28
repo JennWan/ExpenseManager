@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//creates a JFrame to gather earning information
 public class SetEarning extends JFrame implements ActionListener {
     ExpenseManagerUI managerUI;
     JTextField incomeToUse;
@@ -14,6 +15,7 @@ public class SetEarning extends JFrame implements ActionListener {
     JTextField earning;
     JLabel earningLabel;
 
+    //EFFECTS: creates a JFrame
     public SetEarning(ExpenseManagerUI managerUI) {
         this.managerUI = managerUI;
         incomeToUse = managerUI.getIncomeToUse();
@@ -36,6 +38,8 @@ public class SetEarning extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: process the button pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {

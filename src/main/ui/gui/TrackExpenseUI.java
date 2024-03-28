@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//creates JFrame to gather information on amount to track
 public class TrackExpenseUI extends JFrame implements ActionListener {
     DisplayExpense displayExpense;
     Expense expense;
@@ -15,6 +16,7 @@ public class TrackExpenseUI extends JFrame implements ActionListener {
     JTextField amount;
     JLabel amountLabel;
 
+    //EFFECTS: creates JFrame
     public TrackExpenseUI(DisplayExpense e) {
         this.displayExpense = e;
         this.expense = displayExpense.getExpense();
@@ -37,6 +39,8 @@ public class TrackExpenseUI extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: process button pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
