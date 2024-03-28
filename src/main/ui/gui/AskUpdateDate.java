@@ -46,10 +46,10 @@ public class AskUpdateDate extends JFrame implements ActionListener {
         if (e.getSource() == noButton) {
             System.out.println("Updating today's date!");
             SetDate today = new SetDate(em);
-            DueNDays nDays = new DueNDays(em);
+            DueNDays days = new DueNDays(em);
         }
         if (e.getSource() == yesButton) {
-            DueNDays nDays = new DueNDays(em);
+            DueNDays days = new DueNDays(em);
         }
         this.dispose();
     }
