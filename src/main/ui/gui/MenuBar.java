@@ -183,6 +183,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         try {
             manager = jsonReader.read(ui);
             System.out.println("Loaded ExpenseManager from " + JSON_STORE);
+            managerUI.getIncomeToUse().setText(String.valueOf(manager.getIncomeToUse()));
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
@@ -193,19 +194,19 @@ public class MenuBar extends JMenuBar implements ActionListener {
         ImageIcon loadImage = new ImageIcon("./src/main/icon/load.png");
         Image image1 = loadImage.getImage();
         Image tempImage1 = image1.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon loadIcon = new ImageIcon(tempImage1);
+        loadIcon = new ImageIcon(tempImage1);
 
         //Reference: https://www.flaticon.com/free-icon/save-instagram_5662990
         ImageIcon saveImage = new ImageIcon("./src/main/icon/save.png");
         Image image2 = saveImage.getImage();
         Image tempImage2 = image2.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon saveIcon = new ImageIcon(tempImage2);
+        saveIcon = new ImageIcon(tempImage2);
 
         //Reference: https://pngtree.com/so/door-icon
         ImageIcon exitImage = new ImageIcon("./src/main/icon/exit.png");
         Image image3 = exitImage.getImage();
         Image tempImage3 = image3.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
-        ImageIcon exitIcon = new ImageIcon(tempImage3);
+        exitIcon = new ImageIcon(tempImage3);
 
         loadItem.setIcon(loadIcon);
         saveItem.setIcon(saveIcon);

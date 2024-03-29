@@ -50,6 +50,7 @@ public class JsonReader {
         em.setExpenseManagerUI(ui);
         ui.setManager(em);
         addExpenses(em, jsonObject);
+        em.setIncomeToUse(jsonObject.getDouble("incomeToUse"));
         return em;
     }
 

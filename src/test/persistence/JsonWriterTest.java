@@ -66,7 +66,7 @@ public class JsonWriterTest {
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralExpenseManager.json");
             em = reader.read(ui);
-            assertEquals(1000.0, em.getIncomeToUse());
+            assertEquals(1500.0, em.getIncomeToUse());
             List<Expense> list = em.getExpenseList();
             assertEquals(2, list.size());
 

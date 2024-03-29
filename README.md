@@ -38,4 +38,15 @@ where almost everything is new.
      I want to be reminded to save my list of Expense to file and have the option to do so or not. 
 - As a user, when I start the application, I want to be given the option to load my to-do list from file.
 
-# add the documentation requirements!!!!
+# Instructions for Grader
+
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by selecting the
+menu item 'New Expense' on the MenuBar where the user will be asked to fill out information to create a new expense. 
+Upon pressing the submit button, a new expense will be added to the ExpenseManager.
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by selecting the
+menu item 'Action Options' for filtering options to achieve a subset of the Xs (expenses). 
+- You can locate my visual component by selecting 'File' on the MenuBar.
+- You can save the state of my application by selecting 'File' on the MenuBar, where the user will be presented with the 
+options to save, load, and exit. The user may select save to save the state of my application.
+- You can reload the state of my application by selecting 'File' on the MenuBar, where the user will be presented with the
+  options to save, load, and exit. The user may select load to reload the state of my application.
