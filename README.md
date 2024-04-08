@@ -64,7 +64,6 @@ options to save, load, and exit. The user may select save to save the state of m
 
 # Phase 4: Task 3
 *If you had more time to work on the project, what refactoring might you use to improve your design?*
-
 If I had more time to work on the project, I would refactor an aspect of my GUI. One of the refactoring 
 I would do will consist of creating an abstract class to refactor out the functionalities in my “GUI setter class” 
 such as SetDate, SetEarning and AskUpdateDate, that centers around the ExpenseManager class because the constructor 
