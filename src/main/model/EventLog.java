@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-//Referenced from....
+//Referenced from the Alarm System Application
+//https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
 /**
- * Represents a log of alarm system events.
+ * Represents a log of ExpenseManager events.
+ * Log events related to Expense and ExpenseManager.
  * We use the Singleton Design Pattern to ensure that there is only
  * one EventLog in the system and that the system has global access
  * to the single instance of the EventLog.

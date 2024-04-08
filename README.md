@@ -52,13 +52,29 @@ options to save, load, and exit. The user may select save to save the state of m
   options to save, load, and exit. The user may select load to reload the state of my application.
 
 # Phase 4: Task 2
-- Note to marker:
-- Action 1 related to the Xs and Y: Track amount towards an expense
-- Action 2 related to the Xs and Y: Set DueDate for an expense
-### Representative sample of events:
+*Note to marker:*
+- Action 1 related to the Xs and Y: Track amount towards an expense.
+- Action 2 related to the Xs and Y: Set DueDate for an expense.
+
+*Representative sample of events:*
 - Mon Apr 08 01:43:44 PDT 2024 2000.0 has been set for available income to allocate!
 - Mon Apr 08 01:44:08 PDT 2024 300.0 is allocated towards: Rent!
-- Mon Apr 08 01:44:17 PDT 2024 150.0 added to Rent
-- Mon Apr 08 01:44:24 PDT 2024 Due date of 240410 set for Rent
+- Mon Apr 08 01:44:17 PDT 2024 150.0 added to Rent!
+- Mon Apr 08 01:44:24 PDT 2024 Due date of 240410 set for Rent!
 
 # Phase 4: Task 3
+*If you had more time to work on the project, what refactoring might you use to improve your design?*
+
+If I had more time to work on the project, I would refactor an aspect of my GUI. One of the refactoring 
+I would do will consist of creating an abstract class to refactor out the functionalities in my “GUI setter class” 
+such as SetDate, SetEarning and AskUpdateDate, that centers around the ExpenseManager class because the constructor 
+consists of many duplicates in code. Within this abstract class, there would be a method somewhat similar to 
+setInformation(ExpenseManagerUI ui) for the constructor. In addition to the constructor, an abstract method for 
+actionPerformed(ActionEvent e) sets the information given by the user to ExpenseManager. Currently, SetEarning has 
+an association with ExpenseManagerUI to access ExpenseManager to serve the purpose of setting the incomeToUse field. 
+Having SetEarning refactored to take in a parameter of ExpenseManager would assist the process of setting incomeToUse. 
+Lastly, for its functionality of updating the value displayed on the GUI, I would use getExpenseManagerUI() from the 
+ExpenseManager class and getIncomeToUse from the ExpenseManagerUI class nextly use setText() with the user input to 
+update the JTextField on the GUI desktop. I would also do a similar refactoring for AskUpdateDate. Doing the above 
+refactoring mentioned would remove associations and simplify the UML diagram alongside with reducing the amount of 
+duplication within the project.

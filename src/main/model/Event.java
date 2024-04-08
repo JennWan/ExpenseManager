@@ -3,9 +3,10 @@ package model;
 import java.util.Calendar;
 import java.util.Date;
 
-
+//Referenced from the Alarm System Application
+//https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
 /**
- * Represents an alarm system event.
+ * Represents an Expense event.
  */
 public class Event {
     private static final int HASH_CONSTANT = 13;
