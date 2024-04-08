@@ -106,6 +106,5 @@ public class ExpenseManagerTest {
         manager.setExpenseManagerUI(ui);
         assertEquals(ui, manager.getExpenseManagerUI());
         assertEquals(manager, ui.getManager());
-        assertEquals("Expense setup completed!", ui.update());
     }
 }

@@ -6,6 +6,7 @@ import persistence.Writable;
 import ui.gui.ExpenseManagerUI;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 //Referenced from the JsonSerialization Demo
@@ -25,6 +26,15 @@ public class ExpenseManager implements Writable {
         this.expenseList = new ArrayList<>();
         this.today = null;
         this.expenseManagerUI = null;
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Iterator<Event> itr = EventLog.getInstance().iterator();
+
+            while (itr.hasNext()) {
+                Event e = itr.next();
+                System.out.println(e);
+            }
+        }));
     }
 
     //MODIFIES: this
@@ -33,6 +43,8 @@ public class ExpenseManager implements Writable {
         this.expenseList.add(expense);
         this.decreaseIncomeToUse(expense.getGoalSetAmount());
         this.notifyUI();
+        EventLog.getInstance().logEvent(
+                new Event(expense.getGoalSetAmount() + " is allocated towards: " + expense.getTitle() + "!"));
     }
 
     //EFFECTS: return a filtered expenseList with completed == isPaidOff()
@@ -43,6 +55,7 @@ public class ExpenseManager implements Writable {
                 list.add(e);
             }
         }
+        EventLog.getInstance().logEvent(new Event("Paid Off is " + completed + " Printed!"));
         return list;
     }
 
@@ -57,6 +70,7 @@ public class ExpenseManager implements Writable {
                 }
             }
         }
+        EventLog.getInstance().logEvent(new Event("Expense Due in " + day + " Days Printed!"));
         return list;
     }
 
@@ -87,6 +101,7 @@ public class ExpenseManager implements Writable {
 
     public void setIncomeToUse(Double amount) {
         this.incomeToUse = amount;
+        EventLog.getInstance().logEvent(new Event(amount + " has been set for available income to allocate!"));
     }
 
     public List<Expense> getExpenseList() {

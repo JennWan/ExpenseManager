@@ -44,7 +44,6 @@ public class TrackExpenseUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
-            System.out.println(amount.getText() + " added to " + expense.getTitle());
             expense.payAmount(Double.valueOf(amount.getText()));
             displayExpense.setExpenseInfo(expense);
         }

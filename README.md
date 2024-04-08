@@ -50,3 +50,15 @@ menu item 'Action Options' for filtering options to achieve a subset of the Xs (
 options to save, load, and exit. The user may select save to save the state of my application.
 - You can reload the state of my application by selecting 'File' on the MenuBar, where the user will be presented with the
   options to save, load, and exit. The user may select load to reload the state of my application.
+
+# Phase 4: Task 2
+- Note to marker:
+- Action 1 related to the Xs and Y: Track amount towards an expense
+- Action 2 related to the Xs and Y: Set DueDate for an expense
+### Representative sample of events:
+- Mon Apr 08 01:43:44 PDT 2024 2000.0 has been set for available income to allocate!
+- Mon Apr 08 01:44:08 PDT 2024 300.0 is allocated towards: Rent!
+- Mon Apr 08 01:44:17 PDT 2024 150.0 added to Rent
+- Mon Apr 08 01:44:24 PDT 2024 Due date of 240410 set for Rent
+
+# Phase 4: Task 3

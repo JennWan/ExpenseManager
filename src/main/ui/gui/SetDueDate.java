@@ -44,7 +44,6 @@ public class SetDueDate extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
             expense.setDueDate(date.getText());
-            System.out.println("Due Date Setup Completed!");
         }
         this.dispose();
     }

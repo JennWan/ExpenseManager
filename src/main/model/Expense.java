@@ -34,6 +34,7 @@ public class Expense implements Writable {
         if (this.balance == 0.0) {
             setPaidOff(true);
         }
+        EventLog.getInstance().logEvent(new Event(amount + " added to " + this.title));
         return this.balance;
     }
 
@@ -41,6 +42,7 @@ public class Expense implements Writable {
     //  must be >= the integer value of today
     public void setDueDate(String date) {
         this.dueDate = date;
+        EventLog.getInstance().logEvent(new Event("Due date of " + date + " set for " + this.title));
     }
 
     //REQUIRES: date must be a string consisting only of integers of valid calendar days

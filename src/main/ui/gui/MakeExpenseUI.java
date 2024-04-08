@@ -56,9 +56,6 @@ public class MakeExpenseUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
-            System.out.println(amount.getText()
-                    + " is allocated towards: "
-                    + title.getText());
             Expense expense = new Expense(title.getText(), Double.valueOf(amount.getText()));
             em.addExpense(expense);
             this.dispose();
