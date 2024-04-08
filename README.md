@@ -78,3 +78,10 @@ ExpenseManager class and getIncomeToUse from the ExpenseManagerUI class nextly u
 update the JTextField on the GUI desktop. I would also do a similar refactoring for AskUpdateDate. Doing the above 
 refactoring mentioned would remove associations and simplify the UML diagram alongside with reducing the amount of 
 duplication within the project.
+
+Additionally, I might look into implementing the Singleton Pattern for the ExpenseManager class, as for any moment there 
+should be only one ExpenseManager instance. To implement the Singleton Pattern, I would create a private static field of 
+type ExpenseManager in the ExpenseManager class, make my constructor private and create a getInstance() method to access 
+the single instance of ExpenseManager. I believe this could be a pattern I would want to implement, as the pattern would 
+allow me to coordinate a state across the system. Yet, this will require further consideration as the pattern breaks 
+Object-oriented conventions, introducing a global method and breaking SRP.
