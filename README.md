@@ -51,7 +51,7 @@ options to save, load, and exit. The user may select save to save the state of m
 - You can reload the state of my application by selecting 'File' on the MenuBar, where the user will be presented with the
   options to save, load, and exit. The user may select load to reload the state of my application.
 
-# Phase 4: Task 2
+# EventLog
 *Note to marker:*
 - Action 1 related to the Xs and Y: Track amount towards an expense.
 - Action 2 related to the Xs and Y: Set DueDate for an expense.
@@ -62,7 +62,7 @@ options to save, load, and exit. The user may select save to save the state of m
 - Mon Apr 08 01:44:17 PDT 2024 150.0 added to Rent!
 - Mon Apr 08 01:44:24 PDT 2024 Due date of 240410 set for Rent!
 
-# Phase 4: Task 3
+# If I have more time, I would...
 *If you had more time to work on the project, what refactoring might you use to improve your design?*
 
 If I had more time to work on the project, I would refactor an aspect of my GUI. One of the refactoring 
