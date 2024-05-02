@@ -1,19 +1,18 @@
 {
-    "today": "240328",
-    "incomeToUse": 1300,
+    "today": "240414",
+    "incomeToUse": 500,
     "expense": [
         {
-            "balance": 200,
+            "balance": 500,
             "paidOff": false,
-            "dueDate": "240330",
+            "dueDate": "240415",
             "title": "Rent",
-            "goalSetAmount": 200
+            "goalSetAmount": 1000
         },
         {
-            "balance": 0,
-            "paidOff": true,
-            "dueDate": "240329",
-            "title": "Food",
+            "balance": 500,
+            "paidOff": false,
+            "title": "Shopping",
             "goalSetAmount": 500
         }
     ]
